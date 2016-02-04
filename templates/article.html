@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-{% block header_title %}{% endblock %}
+{% block extra_title %}
+    {{ article.title|striptags }} - 
+{% endblock %}
+{% block header_title %}
+    <h1 class="page-title" itemprop="headline">{{ article.title|striptags }}</h1>
+{% endblock %}
 {% block header_image %}{% if article.header_image %}{{ article.header_image }}{% else %}{{ DEFAULT_HEADER_IMAGE }}{% endif %}{% endblock %}
 {% block scroll %}{% endblock %}
 {% block template_type %}post-template{% endblock %}
@@ -7,7 +12,7 @@
 <main id="content" class="content" role="main">
     <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
         <header class="post-header">
-            <h1 class="post-title" itemprop="headline">{{ article.title|striptags }}</h1>
+            <h1 class="post-title hidden" itemprop="headline">{{ article.title|striptags }}</h1>
             <section class="post-meta">
                 <time class="post-date" itemprop="datePublished" datetime="{{ article.date|strftime('%YYYY-%MM-%DD') }}">{{ article.date|strftime('%A, %B %d, %Y') }}</time>
                 on {% for tag in article.tags %}<a href="{{ tag.url }}">{{ tag.name | title }}{% if not loop.last %}, {% endif %}</a>{% endfor %}
